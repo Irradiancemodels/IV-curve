@@ -1,0 +1,37 @@
+import numpy as np
+import matplotlib.pyplot as plt
+#import pandas as pn
+#import math as math
+#pip.main (["install","math"])
+#voltage = [30,29,28,27,21,14,0]
+#current = [0.1,3,7,8,8.3,8.5,8.7]
+#print (current)
+
+
+
+I0 = (1e-10) # dark saturation current
+IL = 0.5 # light generated current
+q = 1.6e-19#1.6x10-19 coulumbs
+k = 1.38e-23# 1.38x10-23joules per kelvin
+n = 1 # ideality factor
+T = 300 # temperature in kelvin
+Vvalues =[0.0, 0.4, 0.41, 0.42, 0.43, 0.44, 0.45, 0.46, 0.47, 0.48, 0.49, 0.5, 0.501, 0.502, 0.505, 0.508, 0.513, 0.52, 0.53, 0.54, 0.55, 0.56, 0.58]
+V = np.array (Vvalues) # Voltage
+A = IL-I0*(np.exp((q*V)/(n*k*T)))
+W = (Vvalues * A)#
+print (A) # this seems to be out be 0.01-0.05ish when compared to PV education
+
+ivcurve = np.array ([Vvalues, A])
+print (ivcurve, W)
+fig, ax1 = plt.subplots()
+ax1.plot(Vvalues, A)
+ax2 = ax1.twinx()
+ax2.plot (Vvalues, W)
+plt.xlabel ('voltage')
+plt.ylabel ('current')
+ax1.set_ylabel('Current', color='y')
+ax2.set_ylabel('Power', color='g')
+plt.title ('IV Curve')
+plt.plot(Vvalues, A)
+plt.plot(Vvalues, W)
+plt.show ()
